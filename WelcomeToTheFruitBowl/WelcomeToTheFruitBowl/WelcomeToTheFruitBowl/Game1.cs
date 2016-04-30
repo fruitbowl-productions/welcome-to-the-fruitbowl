@@ -10,17 +10,18 @@ namespace WelcomeToTheFruitBowl
     {
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
+        private Engine.Console console;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            console = new Console(Assets.Console.ConsoleFont);
         }
         
         protected override void Initialize()
         {
             Assets.Initialize(Content);
-
             base.Initialize();
         }
 
@@ -48,7 +49,7 @@ namespace WelcomeToTheFruitBowl
             spriteBatch.Begin();
 
             new AsciiTexture(Assets.AsciiTextures.ElfTexture, new Vector2(100, 100), Assets.Fonts.ConsoleFont).Draw(spriteBatch);
-
+            console.Draw(spriteBatch);
             spriteBatch.End();
 
             base.Draw(gameTime);

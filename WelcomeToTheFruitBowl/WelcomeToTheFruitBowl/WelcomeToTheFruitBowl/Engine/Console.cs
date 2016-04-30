@@ -14,8 +14,8 @@ namespace WelcomeToTheFruitBowl.Engine
         private int height;
         private int width;
         private Vector2 position;
-        private List<string> linesList;
-        private string usertype;
+        private List<string> outputLines;
+        private string inputLine;
 
         public Console(SpriteFont spritefont)
         {
@@ -23,16 +23,13 @@ namespace WelcomeToTheFruitBowl.Engine
             height = Screen.Height;
             width = Screen.Width;
             position = new Vector2(0, 0);
-            linesList = new List<string>();
+            outputLines = new List<string>();
+            inputLine = "> ";
         }
 
         public void Update()
         {
-            foreach (var item in linesList.ReverseInPlace())
-            {
-                
-            }
-            // Update User Type
+            
             // Update Orientation
         }
 
@@ -40,7 +37,7 @@ namespace WelcomeToTheFruitBowl.Engine
         {
             // Draw Previous Type 
             // Draw Console Type 
-            // Draw User Type
+            spriteBatch.DrawString(font, inputLine, position, Color.White);
         }
 
 
