@@ -5,61 +5,65 @@ using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using WelcomeToTheFruitBowl.Utilities;
+using WelcomeToTheFruitBowl.Utilities.Timers;
 
 namespace WelcomeToTheFruitBowl.Engine
 {
     public class Console
     {
         private SpriteFont font;
-        private int height;
-        private int width;
-        private Vector2 position;
         private List<string> outputLines;
         private string inputLine;
         private const string prompt = "> ";
-        private int timer;
+        private DelayedTimer timer;
+
+        private SpriteBatch spriteBatch;
 
         public Console(SpriteFont spritefont)
         {
             font = spritefont;
-            height = Screen.Height;
-            width = Screen.Width;
-            position = new Vector2(0, 0);
             outputLines = new List<string>();
-            inputLine = prompt;
-            timer = 0;
-            outputLines.Add("hi");
+            inputLine = "";
+
+            timer = new DelayedTimer(() => { }, () =>
+            {
+                Game1.DrawActions.Enqueue(spriteBatch =>
+                {
+                    spriteBatch.DrawString(font, "_",
+                        new Vector2(font.MeasureString(prompt + inputLine).X,
+                            Screen.Height - font.MeasureString(prompt).Y), Color.White);
+                });
+            }, TimeSpan.FromMilliseconds(500));
         }
 
-        public void Update()
+        public void Update(GameTime gameTime)
         {
-            timer += 1;
-            if (timer > 50)
+            timer.Update(gameTime);
+
+            foreach (var key in Keyboards.DelayedKeyboard.PressedKeys)
             {
-                timer = 0;
+                inputLine += key.ToString();
             }
-            // Update Orientation
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            int counter = 0;
-            foreach (string line in outputLines.ReverseInPlace())
+            if (this.spriteBatch == null)
             {
-                spriteBatch.DrawString(font, line, new Vector2(0,position.Y + height - ((2 + counter) * font.MeasureString(prompt).Y)), Color.White);
+                this.spriteBatch = spriteBatch;
+            }
+
+            var counter = 0;
+            foreach (var line in outputLines.ReverseInPlace())
+            {
+                spriteBatch.DrawString(font, line,
+                    new Vector2(0, Screen.Height - ((2 + counter)*font.MeasureString(prompt).Y)), Color.White);
                 counter += 1;
-            }        
-            if (timer <= 25)
-            {
+            }
 
-                spriteBatch.DrawString(font, inputLine, new Vector2(0, position.Y + height - font.MeasureString(prompt).Y), Color.White);
-            }
-            else if (timer <= 50)
-            {
-                spriteBatch.DrawString(font,inputLine + "_", new Vector2(0, position.Y + height - font.MeasureString(prompt).Y), Color.White);
-            }
+            spriteBatch.DrawString(font, prompt, new Vector2(0, Screen.Height - font.MeasureString(prompt).Y), Color.White);
+            spriteBatch.DrawString(font, inputLine, new Vector2(font.MeasureString(prompt).X, Screen.Height - font.MeasureString(prompt).Y),
+                Color.White);
         }
-
-
     }
 }

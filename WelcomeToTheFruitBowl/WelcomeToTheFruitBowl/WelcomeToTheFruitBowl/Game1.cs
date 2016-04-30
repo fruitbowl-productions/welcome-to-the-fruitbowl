@@ -1,7 +1,11 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using WelcomeToTheFruitBowl.Engine;
+using Console = WelcomeToTheFruitBowl.Engine.Console;
 
 namespace WelcomeToTheFruitBowl
 {
@@ -10,6 +14,8 @@ namespace WelcomeToTheFruitBowl
         private readonly GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         private Console console;
+
+        public static readonly Queue<Action<SpriteBatch>> DrawActions = new Queue<Action<SpriteBatch>>();
 
         public Game1()
         {
@@ -34,14 +40,15 @@ namespace WelcomeToTheFruitBowl
         
         protected override void Update(GameTime gameTime)
         {
-            Engine.Keyboard.Update();
+            Engine.Keyboards.Keyboard.Update();
+            Engine.Keyboards.DelayedKeyboard.Update(gameTime);
 
-            if (Engine.Keyboard.IsKeyDown(Keys.Escape))
+            if (Engine.Keyboards.Keyboard.IsKeyDown(Keys.Escape))
             {
                 Exit();
             }
 
-            console.Update();
+            console.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -54,6 +61,11 @@ namespace WelcomeToTheFruitBowl
 
             new AsciiTexture(Assets.AsciiTextures.ElfTexture, new Vector2(100, 100), Assets.Fonts.ConsoleFont).Draw(spriteBatch);
             console.Draw(spriteBatch);
+
+            while (DrawActions.Count != 0)
+            {
+                DrawActions.Dequeue().Invoke(spriteBatch);
+            }
 
             spriteBatch.End();
 

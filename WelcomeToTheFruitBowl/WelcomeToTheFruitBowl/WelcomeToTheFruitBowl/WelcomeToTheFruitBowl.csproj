@@ -62,7 +62,8 @@
   <ItemGroup>
     <Compile Include="Assets.cs" />
     <Compile Include="Engine\Console.cs" />
-    <Compile Include="Engine\Keyboard.cs" />
+    <Compile Include="Engine\Keyboards\DelayedKeyboard.cs" />
+    <Compile Include="Engine\Keyboards\Keyboard.cs" />
     <Compile Include="Engine\Screen.cs" />
     <Compile Include="Engine\AsciiTexture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -12,8 +12,8 @@ namespace WelcomeToTheFruitBowl.Utilities.Timers
 
         public Timer(Action action, TimeSpan delay)
         {
-            this.Action = action;
-            this.Delay = delay;
+            Action = action;
+            Delay = delay;
             Current = TimeSpan.Zero;
         }
 
