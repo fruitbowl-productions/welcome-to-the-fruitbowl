@@ -17,10 +17,9 @@ namespace WelcomeToTheFruitBowl.Utilities
             {
                 for (var x = 0; x < pixelizedTexture.Count; ++x)
                 {
-                    
+                    // TODO
                 }
             }
-
             throw new NotImplementedException();
         }
 

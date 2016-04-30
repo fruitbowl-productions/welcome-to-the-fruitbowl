@@ -4,14 +4,14 @@ namespace WelcomeToTheFruitBowl.Engine
 {
     public static class Screen
     {
-        private static GraphicsDevice GraphicsDevice;
+        private static GraphicsDevice graphicsDevice;
 
-        public static int Width => GraphicsDevice.Viewport.Width;
-        public static int Height => GraphicsDevice.Viewport.Height;
+        public static int Width => graphicsDevice.Viewport.Width;
+        public static int Height => graphicsDevice.Viewport.Height;
 
-        public static void Initialize(GraphicsDevice graphicsDevice)
+        public static void Initialize(GraphicsDevice graphicsDeviceInput)
         {
-            GraphicsDevice = graphicsDevice;
+            graphicsDevice = graphicsDeviceInput;
         }
     }
 }
