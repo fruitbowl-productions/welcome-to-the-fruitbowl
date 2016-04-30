@@ -60,6 +60,7 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets.cs" />
     <Compile Include="Engine\Console.cs" />
     <Compile Include="Engine\Keyboard.cs" />
     <Compile Include="Engine\Screen.cs" />

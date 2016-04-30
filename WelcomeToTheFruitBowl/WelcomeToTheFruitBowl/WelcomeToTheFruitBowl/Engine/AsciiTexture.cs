@@ -10,8 +10,8 @@ namespace WelcomeToTheFruitBowl.Engine
     {
         public class AsciiCharacter
         {
-            public Color Color;
-            public char Character;
+            public readonly Color Color;
+            public readonly char Character;
             public Vector2 Position;
 
             public AsciiCharacter(Color color, char character, Vector2 position)
@@ -101,7 +101,7 @@ namespace WelcomeToTheFruitBowl.Engine
             this.font = font;
             texture = rawTexture.Select(character =>
             {
-                character.Position = (character.Position * new Vector2(LetterWidth, LetterHeight)) + position;
+                character.Position = character.Position * new Vector2(LetterWidth, LetterHeight) + position;
                 return character;
             }).ToList();
         }

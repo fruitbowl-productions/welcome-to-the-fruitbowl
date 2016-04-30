@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using WelcomeToTheFruitBowl.Utilities;
 
 namespace WelcomeToTheFruitBowl.Engine
 {
@@ -27,7 +28,7 @@ namespace WelcomeToTheFruitBowl.Engine
 
         public void Update()
         {
-            foreach (var item in linesList.Reverse())
+            foreach (var item in linesList.ReverseInPlace())
             {
                 
             }
