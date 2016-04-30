@@ -16,7 +16,7 @@ namespace WelcomeToTheFruitBowl
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            console = new Console(Assets.Console.ConsoleFont);
+            console = new Console(Assets.Fonts.ConsoleFont);
         }
         
         protected override void Initialize()
