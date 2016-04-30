@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using WelcomeToTheFruitBowl.Engine;
 
 namespace WelcomeToTheFruitBowl
 {
@@ -9,11 +10,13 @@ namespace WelcomeToTheFruitBowl
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        private Engine.Console console;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            console = new Console();
         }
         
         protected override void Initialize()
@@ -43,7 +46,7 @@ namespace WelcomeToTheFruitBowl
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin();
-
+            
             spriteBatch.End();
 
             base.Draw(gameTime);
