@@ -28,7 +28,7 @@ namespace WelcomeToTheFruitBowl
             Screen.Initialize(graphics.GraphicsDevice);
             Assets.Initialize(Content);
 
-            console = new Console();
+            console = new Console(Assets.Fonts.ConsoleFont);
 
             base.Initialize();
         }
