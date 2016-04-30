@@ -6,9 +6,9 @@ namespace WelcomeToTheFruitBowl.Utilities.Timers
     public class Timer
     {
         protected readonly Action Action;
+        protected TimeSpan Current;
 
         protected TimeSpan Delay;
-        protected TimeSpan Current;
 
         public Timer(Action action, TimeSpan delay)
         {

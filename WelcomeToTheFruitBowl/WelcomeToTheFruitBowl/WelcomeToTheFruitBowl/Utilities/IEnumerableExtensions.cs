@@ -2,7 +2,7 @@
 
 namespace WelcomeToTheFruitBowl.Utilities
 {
-    public static class IEnumerableExtensions
+    public static class EnumerableExtensions
     {
         public static IEnumerable<T> ReverseInPlace<T>(this IEnumerable<T> list)
         {

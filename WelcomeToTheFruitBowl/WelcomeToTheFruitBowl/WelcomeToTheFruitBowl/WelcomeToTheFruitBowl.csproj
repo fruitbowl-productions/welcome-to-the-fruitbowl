@@ -68,7 +68,7 @@
     <Compile Include="Engine\AsciiTexture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Game1.cs" />
+    <Compile Include="WelcomeToTheFruitBowlGame.cs" />
     <Compile Include="Utilities\IEnumerableExtensions.cs" />
     <Compile Include="Utilities\Timers\DelayedTimer.cs" />
     <Compile Include="Utilities\Timers\Timer.cs" />

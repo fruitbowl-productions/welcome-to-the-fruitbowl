@@ -8,11 +8,11 @@ namespace WelcomeToTheFruitBowl
 {
     public static class Assets
     {
-        public static ContentManager Content;
+        private static ContentManager content;
 
-        public static void Initialize(ContentManager content)
+        public static void Initialize(ContentManager contentInput)
         {
-            Content = content;
+            content = contentInput;
 
             AsciiTextures.Initialize();
             Fonts.Initialize();
@@ -24,7 +24,7 @@ namespace WelcomeToTheFruitBowl
 
             public static void Initialize()
             {
-                ElfTexture = new List<AsciiTexture.AsciiCharacter>()
+                ElfTexture = new List<AsciiTexture.AsciiCharacter>
                 {
                     new AsciiTexture.AsciiCharacter(Color.White, 'a', new Vector2(0, 0))
                 };
@@ -37,7 +37,7 @@ namespace WelcomeToTheFruitBowl
 
             public static void Initialize()
             {
-                ConsoleFont = Content.Load<SpriteFont>(@"Fonts\Console");
+                ConsoleFont = content.Load<SpriteFont>(@"Fonts\Console");
             }
         }
     }

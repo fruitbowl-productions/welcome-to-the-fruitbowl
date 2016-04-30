@@ -4,7 +4,7 @@ namespace WelcomeToTheFruitBowl.Engine
 {
     public static class Screen
     {
-        public static GraphicsDevice GraphicsDevice;
+        private static GraphicsDevice GraphicsDevice;
 
         public static int Width => GraphicsDevice.Viewport.Width;
         public static int Height => GraphicsDevice.Viewport.Height;
