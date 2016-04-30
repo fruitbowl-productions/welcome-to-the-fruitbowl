@@ -30,6 +30,8 @@ namespace WelcomeToTheFruitBowl.Engine
                             Screen.Height - font.MeasureString(Prompt).Y), Color.White);
                 });
             }, TimeSpan.FromMilliseconds(500));
+            outputLines.Add("Welcome to Defined Destiny!");
+            outputLines.Add("A Text Based RPG Classic!");
         }
 
         public void Update(GameTime gameTime)
