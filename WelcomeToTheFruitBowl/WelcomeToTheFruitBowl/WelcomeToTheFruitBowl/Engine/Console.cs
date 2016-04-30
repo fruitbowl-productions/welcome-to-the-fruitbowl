@@ -28,7 +28,9 @@ namespace WelcomeToTheFruitBowl.Engine
             outputLines = new List<string>();
             inputLine = prompt;
             timer = 0;
-            outputLines.Add("hi");
+            outputLines.Add("Welcome To Defined Destiny!");
+            outputLines.Add("A Text Based RPG Classic!");
+
         }
 
         public void Update()
