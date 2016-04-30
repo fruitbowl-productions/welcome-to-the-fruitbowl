@@ -69,6 +69,8 @@
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Utilities\IEnumerableExtensions.cs" />
+    <Compile Include="Utilities\Timers\DelayedTimer.cs" />
+    <Compile Include="Utilities\Timers\Timer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

@@ -54,6 +54,7 @@ namespace WelcomeToTheFruitBowl
 
             new AsciiTexture(Assets.AsciiTextures.ElfTexture, new Vector2(100, 100), Assets.Fonts.ConsoleFont).Draw(spriteBatch);
             console.Draw(spriteBatch);
+
             spriteBatch.End();
 
             base.Draw(gameTime);
