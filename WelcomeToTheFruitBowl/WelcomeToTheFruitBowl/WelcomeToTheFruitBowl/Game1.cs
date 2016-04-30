@@ -9,19 +9,18 @@ namespace WelcomeToTheFruitBowl
     {
         private readonly GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
-        private Engine.Console console;
+        private Console console;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            console = new Console(Assets.Fonts.ConsoleFont);
         }
         
         protected override void Initialize()
         {
-            Assets.Initialize(Content);
             Screen.Initialize(graphics.GraphicsDevice);
+            Assets.Initialize(Content);
             
             console = new Console(Assets.Fonts.ConsoleFont);
 
