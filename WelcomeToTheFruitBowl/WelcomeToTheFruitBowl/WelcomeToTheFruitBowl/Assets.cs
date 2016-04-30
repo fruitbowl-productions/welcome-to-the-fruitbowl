@@ -24,7 +24,7 @@ namespace WelcomeToTheFruitBowl
 
             public static void Initialize()
             {
-                ElfTexture = new List<AsciiTexture.AsciiCharacter>()
+                ElfTexture = new List<AsciiTexture.AsciiCharacter>
                 {
                     new AsciiTexture.AsciiCharacter(Color.White, 'a', new Vector2(0, 0))
                 };

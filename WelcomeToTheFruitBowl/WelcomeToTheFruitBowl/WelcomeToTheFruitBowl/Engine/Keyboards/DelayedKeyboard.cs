@@ -19,23 +19,24 @@ namespace WelcomeToTheFruitBowl.Engine.Keyboards
 
             foreach (var key in Enum.GetValues(typeof(Keys)))
             {
-                Delays[(Keys)key] = DefaultDelay;
+                Delays[(Keys) key] = DefaultDelay;
             }
         }
+
+        public static IEnumerable<Keys> PressedKeys => CurrentlyPressed;
 
         public static bool IsKeyDown(Keys key) => CurrentlyPressed.Contains(key);
         public static bool IsKeyUp(Keys key) => !IsKeyDown(key);
 
         public static bool IsAnyKeyDown() => CurrentlyPressed.Count > 0;
 
-        private static IEnumerable<Keys> GetPressedKeys(KeyboardState keyboard) => keyboard.GetPressedKeys().Where(key => key != Keys.None);
-
-        public static IEnumerable<Keys> PressedKeys => CurrentlyPressed;
+        private static IEnumerable<Keys> GetPressedKeys(KeyboardState keyboard)
+            => keyboard.GetPressedKeys().Where(key => key != Keys.None);
 
         public static void Update(GameTime gameTime)
         {
             CurrentlyPressed.Clear();
-            
+
             foreach (var key in GetPressedKeys(Microsoft.Xna.Framework.Input.Keyboard.GetState()))
             {
                 if (Delays[key] > TimeSpan.Zero) continue;

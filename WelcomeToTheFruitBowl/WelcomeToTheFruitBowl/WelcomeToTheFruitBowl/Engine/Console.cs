@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using WelcomeToTheFruitBowl.Engine.Keyboards;
 using WelcomeToTheFruitBowl.Utilities;
 using WelcomeToTheFruitBowl.Utilities.Timers;
 
@@ -10,11 +11,11 @@ namespace WelcomeToTheFruitBowl.Engine
 {
     public class Console
     {
+        private const string Prompt = "> ";
         private readonly SpriteFont font = Assets.Fonts.ConsoleFont;
         private readonly List<string> outputLines;
-        private string inputLine;
-        private const string Prompt = "> ";
         private readonly DelayedTimer timer;
+        private string inputLine;
 
         public Console()
         {
@@ -38,7 +39,7 @@ namespace WelcomeToTheFruitBowl.Engine
         {
             timer.Update(gameTime);
 
-            foreach (var key in Keyboards.DelayedKeyboard.PressedKeys)
+            foreach (var key in DelayedKeyboard.PressedKeys)
             {
                 switch (key)
                 {

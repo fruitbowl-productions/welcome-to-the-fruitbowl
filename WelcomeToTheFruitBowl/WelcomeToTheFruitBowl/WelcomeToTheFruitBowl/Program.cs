@@ -1,5 +1,3 @@
-using System;
-
 namespace WelcomeToTheFruitBowl
 {
 #if WINDOWS || XBOX
@@ -15,4 +13,3 @@ namespace WelcomeToTheFruitBowl
     }
 #endif
 }
-

@@ -15,14 +15,15 @@ namespace WelcomeToTheFruitBowl.Engine.Keyboards
             previousState = currentState;
         }
 
+        public static List<Keys> PressedKeys => GetPressedKeys(currentState);
+
         public static bool IsKeyDown(Keys key) => currentState.IsKeyDown(key);
         public static bool IsKeyUp(Keys key) => currentState.IsKeyUp(key);
 
         public static bool IsAnyKeyDown() => PressedKeys.Count > 0;
 
-        private static List<Keys> GetPressedKeys(KeyboardState keyboard) => keyboard.GetPressedKeys().Where(key => key != Keys.None).ToList();
-
-        public static List<Keys> PressedKeys => GetPressedKeys(currentState);
+        private static List<Keys> GetPressedKeys(KeyboardState keyboard)
+            => keyboard.GetPressedKeys().Where(key => key != Keys.None).ToList();
 
         public static void Update()
         {
