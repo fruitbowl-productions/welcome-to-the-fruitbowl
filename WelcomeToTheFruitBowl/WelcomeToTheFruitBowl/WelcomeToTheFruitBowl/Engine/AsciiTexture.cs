@@ -96,9 +96,10 @@ namespace WelcomeToTheFruitBowl.Engine
             }
         }
 
-        public AsciiTexture(IEnumerable<AsciiCharacter> rawTexture, Vector2 position, SpriteFont font)
+        public AsciiTexture(IEnumerable<AsciiCharacter> rawTexture, Vector2 position)
         {
-            this.font = font;
+            font = Assets.Fonts.ConsoleFont;
+
             texture = rawTexture.Select(character =>
             {
                 character.Position = character.Position * new Vector2(LetterWidth, LetterHeight) + position;
