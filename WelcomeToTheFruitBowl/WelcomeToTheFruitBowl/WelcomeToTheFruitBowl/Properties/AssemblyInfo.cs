@@ -1,15 +1,11 @@
 ﻿using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-// General Information about an assembly is controlled through the following 
-// set of attributes. Change these attribute values to modify the information
-// associated with an assembly.
-[assembly: AssemblyTitle("WelcomeToTheFruitBowl")]
-[assembly: AssemblyProduct("WelcomeToTheFruitBowl")]
+[assembly: AssemblyTitle("Welcome to the FruitBowl")]
+[assembly: AssemblyProduct("Welcome to the FruitBowl")]
 [assembly: AssemblyDescription("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyCopyright("Copyright ©  2016")]
+[assembly: AssemblyCompany("FruitBowl Productions")]
+[assembly: AssemblyCopyright("Copyright © FruitBowl Productions 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
