@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -6,9 +5,9 @@ using WelcomeToTheFruitBowl.Engine;
 
 namespace WelcomeToTheFruitBowl
 {
-    public class Game1 : Microsoft.Xna.Framework.Game
+    public class Game1 : Game
     {
-        private GraphicsDeviceManager graphics;
+        private readonly GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         private Engine.Console console;
 
@@ -22,6 +21,10 @@ namespace WelcomeToTheFruitBowl
         protected override void Initialize()
         {
             Assets.Initialize(Content);
+            Screen.Initialize(graphics.GraphicsDevice);
+            
+            console = new Console(Assets.Fonts.ConsoleFont);
+
             base.Initialize();
         }
 
