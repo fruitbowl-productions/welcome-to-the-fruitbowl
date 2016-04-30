@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework.Input;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Microsoft.Xna.Framework.Input;
 
 namespace WelcomeToTheFruitBowl.Engine
 {
@@ -22,6 +24,8 @@ namespace WelcomeToTheFruitBowl.Engine
             return currentState.GetPressedKeys().Length == 0 ||
                    (currentState.GetPressedKeys().Length == 1 && currentState.GetPressedKeys()[0] == Keys.None);
         }
+
+        public static List<Keys> PressedKeys() => currentState.GetPressedKeys().Where(key => key != Keys.None).ToList();
 
         public static void Update()
         {
