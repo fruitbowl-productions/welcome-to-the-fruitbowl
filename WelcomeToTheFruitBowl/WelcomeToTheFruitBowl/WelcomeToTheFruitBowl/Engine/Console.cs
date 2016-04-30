@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -15,10 +17,14 @@ namespace WelcomeToTheFruitBowl.Engine
         private readonly SpriteFont font = Assets.Fonts.ConsoleFont;
         private readonly List<string> outputLines;
         private readonly DelayedTimer timer;
-        private string inputLine;
+        private List<string> inputLines;
         private int progress;
 
         private readonly List<string[]> dialog;
+
+        // Any character can be used since Courier New is monospace.
+        private int MaxInputChars => Screen.Width/(int)font.MeasureString(" ").X - Prompt.Length;
+        private int MaxOutputChars => Screen.Width/(int) font.MeasureString(" ").X;
 
         private enum InputMode
         {
@@ -31,7 +37,8 @@ namespace WelcomeToTheFruitBowl.Engine
         public Console()
         {
             outputLines = new List<string>();
-            inputLine = "";
+            inputLines = new List<string> { "" };
+
             progress = 0;
 
             timer = new DelayedTimer(() => { }, () =>
@@ -39,20 +46,21 @@ namespace WelcomeToTheFruitBowl.Engine
                 WelcomeToTheFruitBowlGame.DrawActions.Enqueue(spriteBatch =>
                 {
                     spriteBatch.DrawString(font, "_",
-                        new Vector2(font.MeasureString(Prompt + inputLine).X,
+                        new Vector2(font.MeasureString(Prompt + inputLines[inputLines.Count - 1]).X,
                             Screen.Height - font.MeasureString(Prompt).Y), Color.White);
+
                 });
             }, TimeSpan.FromMilliseconds(500));
 
-            inputMode = InputMode.Override;
+            inputMode = InputMode.User;
 
             dialog = new List<string[]>
             {
                 new[] {"Hello!", "You're new here, aren't you?"},
                 new[] {"What?", "What's your name?"},
-                new[] {"Dolor.", "I love your creativity!\nWhat Race are you?"},
+                new[] {"Dolor.", "I love your creativity! What Race are you?"},
                 new[] {"Human.", "Really, not even an Elf?"},
-                new[] {"Yeah.", "So you decide to be a Human!\nWhere will you begin your journey?"},
+                new[] {"Yeah.", "So you decide to be a Human! Where will you begin your journey?"},
                 new[] {"At a much better place than where I was....", "*screen cracks*"}
             };
 
@@ -65,6 +73,7 @@ namespace WelcomeToTheFruitBowl.Engine
             switch (inputMode)
             {
                 case InputMode.User:
+                    var inputLine = inputLines[0];
                     foreach (var key in DelayedKeyboard.PressedKeys)
                     {
                         switch (key)
@@ -296,6 +305,13 @@ namespace WelcomeToTheFruitBowl.Engine
                             default:
                                 throw new ArgumentOutOfRangeException();
                         }
+
+                        if (inputLine.Length >= MaxInputChars)
+                        {
+                            inputLine = inputLine.Substring(0, inputLine.Length - 2);
+                        }
+
+                        inputLines[0] = inputLine;
                     }
                     break;
                 case InputMode.Override:
@@ -316,12 +332,17 @@ namespace WelcomeToTheFruitBowl.Engine
             var counter = 0;
             foreach (var line in outputLines.ReverseInPlace())
             {
-                spriteBatch.DrawString(font, line, new Vector2(0, Screen.Height - (2 + counter)*font.MeasureString(Prompt).Y), Color.White);
+                spriteBatch.DrawString(font, line, new Vector2(0, Screen.Height - (2 + counter + inputLines.Count - 1)*font.MeasureString(Prompt).Y), Color.White);
                 ++counter;
             }
 
-            spriteBatch.DrawString(font, Prompt, new Vector2(0, Screen.Height - font.MeasureString(Prompt).Y), Color.White);
-            spriteBatch.DrawString(font, inputLine, new Vector2(font.MeasureString(Prompt).X, Screen.Height - font.MeasureString(Prompt).Y), Color.White);
+            spriteBatch.DrawString(font, Prompt, new Vector2(0, Screen.Height - font.MeasureString(Prompt).Y*inputLines.Count), Color.White);
+
+            for (var i = 0; i < inputLines.ReverseInPlace().ToList().Count; ++i)
+            {
+                spriteBatch.DrawString(font, inputLines.ReverseInPlace().ToList()[i],
+                    new Vector2(font.MeasureString(Prompt).X, Screen.Height - font.MeasureString(Prompt).Y*(i + 1)), Color.White);
+            }
         }
 
         private void ContinueWrite(IList<string> currentDialogue)
@@ -329,17 +350,34 @@ namespace WelcomeToTheFruitBowl.Engine
             var userInput = currentDialogue[0];
             var npcResponse = currentDialogue[1];
 
-            if (inputLine.Length != userInput.Length)
+            if (inputLines.Combine().Length != userInput.Length)
             {
-                inputLine += userInput[inputLine.Length];
+                if (inputLines[inputLines.Count - 1].Length >= MaxInputChars)
+                {
+                    inputLines.Add(userInput[inputLines.Combine().Length].ToString());
+                }
+                else
+                {
+                    inputLines[inputLines.Count - 1] += userInput[inputLines.Combine().Length];
+                }
             }
             else if (Keyboards.Keyboard.IsKeyDown(Keys.Enter))
             {
                 ++progress;
-                outputLines.Add($"> {inputLine}");
-                inputLine = "";
+                
+                // Move previous user input up.
+                outputLines.Add($"> {inputLines[0]}");
+                if (inputLines.Count > 1)
+                {
+                    for (var i = 1; i < inputLines.Count; ++i)
+                    {
+                        outputLines.Add(inputLines[i]);
+                    }
+                }
 
-                foreach (var line in npcResponse.Split('\n'))
+                inputLines = new List<string> { "" };
+
+                foreach (var line in npcResponse.SplitEvery(MaxOutputChars))
                 {
                     outputLines.Add(line);
                 }

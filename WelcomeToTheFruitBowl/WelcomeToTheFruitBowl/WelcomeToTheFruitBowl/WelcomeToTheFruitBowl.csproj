@@ -71,7 +71,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Utilities\ImageProcessor.cs" />
     <Compile Include="WelcomeToTheFruitBowlGame.cs" />
-    <Compile Include="Utilities\IEnumerableExtensions.cs" />
+    <Compile Include="Utilities\Extensions.cs" />
     <Compile Include="Utilities\Timers\DelayedTimer.cs" />
     <Compile Include="Utilities\Timers\Timer.cs" />
   </ItemGroup>
