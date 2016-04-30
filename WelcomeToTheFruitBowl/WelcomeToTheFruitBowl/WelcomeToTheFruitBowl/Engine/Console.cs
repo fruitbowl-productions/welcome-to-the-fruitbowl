@@ -16,6 +16,8 @@ namespace WelcomeToTheFruitBowl.Engine
         private Vector2 position;
         private List<string> outputLines;
         private string inputLine;
+        private const string prompt = "> ";
+        private int timer;
 
         public Console(SpriteFont spritefont)
         {
@@ -24,20 +26,38 @@ namespace WelcomeToTheFruitBowl.Engine
             width = Screen.Width;
             position = new Vector2(0, 0);
             outputLines = new List<string>();
-            inputLine = "> ";
+            inputLine = prompt;
+            timer = 0;
+            outputLines.Add("hi");
         }
 
         public void Update()
         {
-            
+            timer += 1;
+            if (timer > 50)
+            {
+                timer = 0;
+            }
             // Update Orientation
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            // Draw Previous Type 
-            // Draw Console Type 
-            spriteBatch.DrawString(font, inputLine, position, Color.White);
+            int counter = 0;
+            foreach (string line in outputLines.ReverseInPlace())
+            {
+                spriteBatch.DrawString(font, line, new Vector2(0,position.Y + height - ((2 + counter) * font.MeasureString(prompt).Y)), Color.White);
+                counter += 1;
+            }        
+            if (timer <= 25)
+            {
+
+                spriteBatch.DrawString(font, inputLine, new Vector2(0, position.Y + height - font.MeasureString(prompt).Y), Color.White);
+            }
+            else if (timer <= 50)
+            {
+                spriteBatch.DrawString(font,inputLine + "_", new Vector2(0, position.Y + height - font.MeasureString(prompt).Y), Color.White);
+            }
         }
 
 
