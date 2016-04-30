@@ -336,7 +336,7 @@ namespace WelcomeToTheFruitBowl.Engine
             else if (Keyboards.Keyboard.IsKeyDown(Keys.Enter))
             {
                 ++progress;
-                outputLines.Add("> " + inputLine);
+                outputLines.Add($"> {inputLine}");
                 inputLine = "";
 
                 foreach (var line in npcResponse.Split('\n'))
