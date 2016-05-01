@@ -39,7 +39,7 @@ namespace WelcomeToTheFruitBowl
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            elf = new AsciiTexture(Assets.AsciiTextures.ElfTexture, new Vector2(0, 0));
+            elf = new AsciiTexture(Assets.AsciiTextures.ElfTexture, new Vector2(0, 0)); 
             elfTexture2D = Content.Load<Texture2D>(@"Textures\Elf");
         }
 
@@ -65,7 +65,7 @@ namespace WelcomeToTheFruitBowl
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null);
 
             console.Draw(spriteBatch);
-            elf.Position += new Vector2(1, 0);
+            elf.Position += elf.MoveUnit;
             elf.Draw(spriteBatch);
 
             // Asynchronous drawing

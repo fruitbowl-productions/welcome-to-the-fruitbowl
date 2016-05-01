@@ -29,7 +29,7 @@ namespace WelcomeToTheFruitBowl
                 ElfTexture = ImageProcessor.ConvertTextureToAscii(LoadTexture("Elf"), Color.White, new Dictionary<Color, Color>()
                 {
                     // { Color.Black, Color.Gray }
-                }, ImageProcessor.DrawMode.Fill);
+                }, ImageProcessor.DrawMode.Binary);
             }
 
             private static Texture2D LoadTexture(string textureName)
