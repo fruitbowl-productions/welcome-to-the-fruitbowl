@@ -62,6 +62,7 @@ namespace WelcomeToTheFruitBowl
             new AsciiTexture(Assets.AsciiTextures.ElfTexture, new Vector2(100, 100)).Draw(spriteBatch);
             console.Draw(spriteBatch);
 
+            // Asynchronous drawing
             while (DrawActions.Count != 0)
             {
                 DrawActions.Dequeue().Invoke(spriteBatch);

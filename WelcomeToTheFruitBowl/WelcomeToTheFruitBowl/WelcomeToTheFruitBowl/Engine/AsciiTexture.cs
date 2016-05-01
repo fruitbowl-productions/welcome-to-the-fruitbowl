@@ -20,8 +20,9 @@ namespace WelcomeToTheFruitBowl.Engine
 
             texture = rawTexture.Select(character =>
             {
-                character.Position = character.Position*new Vector2(LetterWidth, LetterHeight) + position;
-                return character;
+                // To determine the dimensions of a letter in Courier New, we can use any character since it's monospace.
+                var newPosition = character.Position*font.MeasureString(" ") + position;
+                return new AsciiCharacter(character.Character, character.Color, newPosition);
             }).ToList();
         }
 
@@ -34,10 +35,6 @@ namespace WelcomeToTheFruitBowl.Engine
         {
             get { throw new NotImplementedException(); }
         }
-
-        // We can use any character, since Courier New is monospace.
-        private float LetterWidth => font.MeasureString(" ").X;
-        private float LetterHeight => font.MeasureString(" ").Y;
 
         public float Left
         {
