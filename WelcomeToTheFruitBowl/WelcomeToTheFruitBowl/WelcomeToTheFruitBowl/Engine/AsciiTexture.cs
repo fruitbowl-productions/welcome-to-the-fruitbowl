@@ -24,6 +24,8 @@ namespace WelcomeToTheFruitBowl.Engine
             }
         }
 
+        public Vector2 MoveUnit => font.MeasureString("  ");
+
         public Vector2 Position;
 
         public AsciiTexture(List<AsciiCharacter> relativeTexture, Vector2 position)
