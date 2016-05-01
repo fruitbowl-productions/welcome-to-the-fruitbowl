@@ -318,8 +318,8 @@ namespace WelcomeToTheFruitBowl.Engine
                     }
                     else
                     {
-                        throw new NotImplementedException();
-                    }
+                        throw new NotImplementedException(); 
+                    }  
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
