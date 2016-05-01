@@ -77,10 +77,10 @@ namespace WelcomeToTheFruitBowl.Engine
             public readonly Color Color;
             public Vector2 Position;
 
-            public AsciiCharacter(Color color, char character, Vector2 position)
+            public AsciiCharacter(char character, Color color, Vector2 position)
             {
-                Color = color;
                 Character = character;
+                Color = color;
                 Position = position;
             }
         }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -312,7 +311,8 @@ namespace WelcomeToTheFruitBowl.Engine
                     }
                     break;
                 case InputMode.Override:
-                    if (DelayedKeyboard.IsAnyKeyDown() && progress < dialog.Count)
+                    if (!DelayedKeyboard.IsAnyKeyDown()) break;
+                    if (progress < dialog.Count)
                     {
                         ContinueWrite(dialog[progress]);
                     }

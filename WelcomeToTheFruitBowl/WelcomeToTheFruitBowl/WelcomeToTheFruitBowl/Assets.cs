@@ -26,7 +26,7 @@ namespace WelcomeToTheFruitBowl
             {
                 ElfTexture = new List<AsciiTexture.AsciiCharacter>
                 {
-                    new AsciiTexture.AsciiCharacter(Color.White, 'a', new Vector2(0, 0))
+                    new AsciiTexture.AsciiCharacter('o', Color.White, new Vector2(0, 0))
                 };
             }
         }
