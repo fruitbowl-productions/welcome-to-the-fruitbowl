@@ -29,9 +29,29 @@ namespace WelcomeToTheFruitBowl
             set { speed = value; }
         }
 
-        public Stats()
+        private int intelligence;
+        private int currentIntelligenceBonus;
+
+        public int Intelligence
         {
-            
+            get { return intelligence + currentIntelligenceBonus; }
+            set { intelligence = value; }
+        }
+
+
+
+        public Stats(int hp, int ma, int str, int spd, int ite)
+        {
+            Health = hp;
+            CurrentHealth = hp;
+            Mana = ma;
+            CurrentMana = ma;
+            Strength = str;
+            currentStrengthBonus = 0;
+            Speed = spd;
+            currentSpeedBonus = 0;
+            Intelligence = ite;
+            currentIntelligenceBonus = 0;
         }
     }
 }
