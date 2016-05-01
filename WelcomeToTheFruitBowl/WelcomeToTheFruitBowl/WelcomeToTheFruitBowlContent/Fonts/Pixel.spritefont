@@ -53,8 +53,25 @@ with.
     -->
     <CharacterRegions>
       <CharacterRegion>
-        <Start>&#32;</Start>
-        <End>&#9619;</End> <!-- Unicode DARK SHADE -->
+        <!-- ASCII 0 -->
+        <Start>&#48;</Start>
+
+        <!-- ASCII 9 -->
+        <End>&#57;</End>
+      </CharacterRegion>
+
+      <CharacterRegion>
+        <!-- Unicode FULL BLOCK -->
+        <Start>&#9608;</Start>
+        <End>&#9608;</End>
+      </CharacterRegion>
+      
+      <CharacterRegion>
+        <!-- Unicode LIGHT SHADE -->
+        <Start>&#9617;</Start>
+
+        <!-- Unicode DARK SHADE -->
+        <End>&#9619;</End>
       </CharacterRegion>
     </CharacterRegions>
   </Asset>
