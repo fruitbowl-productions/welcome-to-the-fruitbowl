@@ -17,14 +17,13 @@ namespace WelcomeToTheFruitBowl.Engine
         private readonly SpriteFont font = Assets.Fonts.ConsoleFont;
         private readonly List<string> outputLines;
         private readonly DelayedTimer timer;
-        private List<string> inputLines;
+        private string userInput;
         private int progress;
 
         private readonly List<string[]> dialog;
 
         // Any character can be used since Courier New is monospace.
         private int MaxInputChars => Screen.Width/(int)font.MeasureString(" ").X - Prompt.Length;
-        private int MaxOutputChars => Screen.Width/(int) font.MeasureString(" ").X;
 
         private enum InputMode
         {
@@ -37,7 +36,7 @@ namespace WelcomeToTheFruitBowl.Engine
         public Console()
         {
             outputLines = new List<string>();
-            inputLines = new List<string> { "" };
+            userInput = "";
 
             progress = 0;
 
@@ -45,23 +44,24 @@ namespace WelcomeToTheFruitBowl.Engine
             {
                 WelcomeToTheFruitBowlGame.DrawActions.Enqueue(spriteBatch =>
                 {
+                    var inputLines = userInput.Split('\n');
                     spriteBatch.DrawString(font, "_",
-                        new Vector2(font.MeasureString(Prompt + inputLines[inputLines.Count - 1]).X,
+                        new Vector2(font.MeasureString(Prompt + inputLines[inputLines.Length - 1]).X,
                             Screen.Height - font.MeasureString(Prompt).Y), Color.White);
 
                 });
             }, TimeSpan.FromMilliseconds(500));
 
-            inputMode = InputMode.User;
+            inputMode = InputMode.Override;
 
             dialog = new List<string[]>
             {
                 new[] {"Hello!", "You're new here, aren't you?"},
                 new[] {"What?", "What's your name?"},
-                new[] {"Dolor.", "I love your creativity! What Race are you?"},
+                new[] {"Dolor.", "I love your creativity!\nWhat Race are you?"},
                 new[] {"Human.", "Really, not even an Elf?"},
-                new[] {"Yeah.", "So you decide to be a Human! Where will you begin your journey?"},
-                new[] {"At a much better place than where I was....", "*screen cracks*"}
+                new[] {"Yeah.", "So you decide to be a Human!\nWhere will you begin your journey?"},
+                new[] {"At a much better place\nthan where I was....", "*screen cracks*"}
             };
 
             outputLines.Add("Welcome to Defined Destiny!");
@@ -73,103 +73,102 @@ namespace WelcomeToTheFruitBowl.Engine
             switch (inputMode)
             {
                 case InputMode.User:
-                    var inputLine = inputLines[0];
                     foreach (var key in DelayedKeyboard.PressedKeys)
                     {
                         switch (key)
                         {
                             case Keys.Back:
-                                if (inputLine.Length > 0)
+                                if (userInput.Length > 0)
                                 {
-                                    inputLine = inputLine.Substring(0, inputLine.Length - 1);
+                                    userInput = userInput.Substring(0, userInput.Length - 1);
                                 }
                                 break;
                             case Keys.Tab:
-                                inputLine += "\t";
+                                userInput += "\t";
                                 break;
                             case Keys.Enter:
-                                inputLine = "";
+                                userInput = "";
                                 break;
                             case Keys.Space:
-                                inputLine += " ";
+                                userInput += " ";
                                 break;
                             case Keys.A:
-                                inputLine += "A";
+                                userInput += "A";
                                 break;
                             case Keys.B:
-                                inputLine += "B";
+                                userInput += "B";
                                 break;
                             case Keys.C:
-                                inputLine += "C";
+                                userInput += "C";
                                 break;
                             case Keys.D:
-                                inputLine += "D";
+                                userInput += "D";
                                 break;
                             case Keys.E:
-                                inputLine += "E";
+                                userInput += "E";
                                 break;
                             case Keys.F:
-                                inputLine += "F";
+                                userInput += "F";
                                 break;
                             case Keys.G:
-                                inputLine += "G";
+                                userInput += "G";
                                 break;
                             case Keys.H:
-                                inputLine += "H";
+                                userInput += "H";
                                 break;
                             case Keys.I:
-                                inputLine += "I";
+                                userInput += "I";
                                 break;
                             case Keys.J:
-                                inputLine += "J";
+                                userInput += "J";
                                 break;
                             case Keys.K:
-                                inputLine += "K";
+                                userInput += "K";
                                 break;
                             case Keys.L:
-                                inputLine += "L";
+                                userInput += "L";
                                 break;
                             case Keys.M:
-                                inputLine += "M";
+                                userInput += "M";
                                 break;
                             case Keys.N:
-                                inputLine += "N";
+                                userInput += "N";
                                 break;
                             case Keys.O:
-                                inputLine += "O";
+                                userInput += "O";
                                 break;
                             case Keys.P:
-                                inputLine += "P";
+                                userInput += "P";
                                 break;
                             case Keys.Q:
-                                inputLine += "Q";
+                                userInput += "Q";
                                 break;
                             case Keys.R:
-                                inputLine += "R";
+                                userInput += "R";
                                 break;
                             case Keys.S:
-                                inputLine += "S";
+                                userInput += "S";
                                 break;
                             case Keys.T:
-                                inputLine += "T";
+                                userInput += "T";
                                 break;
                             case Keys.U:
-                                inputLine += "U";
+                                userInput += "U";
                                 break;
                             case Keys.V:
-                                inputLine += "V";
+                                userInput += "V";
                                 break;
                             case Keys.W:
-                                inputLine += "W";
+                                userInput += "W";
                                 break;
                             case Keys.X:
-                                inputLine += "X";
+                                userInput += "X";
                                 break;
                             case Keys.Y:
-                                inputLine += "Y";
+                                userInput += "Y";
                                 break;
                             case Keys.Z:
-                                inputLine += "Z";
+                                userInput += "Z";
                                 break;
                             case Keys.NumPad0:
                             case Keys.NumPad1:
@@ -306,18 +305,20 @@ namespace WelcomeToTheFruitBowl.Engine
                                 throw new ArgumentOutOfRangeException();
                         }
 
-                        if (inputLine.Length >= MaxInputChars)
+                        if (userInput.Length >= MaxInputChars)
                         {
-                            inputLine = inputLine.Substring(0, inputLine.Length - 2);
+                            userInput = userInput.Substring(0, userInput.Length - 2);
                         }
-
-                        inputLines[0] = inputLine;
                     }
                     break;
                 case InputMode.Override:
                     if (DelayedKeyboard.IsAnyKeyDown() && progress < dialog.Count)
                     {
                         ContinueWrite(dialog[progress]);
+                    }
+                    else
+                    {
+                        throw new NotImplementedException();
                     }
                     break;
                 default:
@@ -329,55 +330,51 @@ namespace WelcomeToTheFruitBowl.Engine
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            var counter = 0;
+            var userInputLines = userInput.Split('\n').ReverseInPlace().ToList();
+            var outputLineNum = 0;
+            
             foreach (var line in outputLines.ReverseInPlace())
             {
-                spriteBatch.DrawString(font, line, new Vector2(0, Screen.Height - (2 + counter + inputLines.Count - 1)*font.MeasureString(Prompt).Y), Color.White);
-                ++counter;
+                spriteBatch.DrawString(font, line, new Vector2(0, Screen.Height - (2 + outputLineNum + userInputLines.Count - 1)*font.MeasureString(Prompt).Y), Color.White);
+                ++outputLineNum;
             }
 
-            spriteBatch.DrawString(font, Prompt, new Vector2(0, Screen.Height - font.MeasureString(Prompt).Y*inputLines.Count), Color.White);
+            spriteBatch.DrawString(font, Prompt, new Vector2(0, Screen.Height - font.MeasureString(Prompt).Y*userInputLines.Count), Color.White);
 
-            for (var i = 0; i < inputLines.ReverseInPlace().ToList().Count; ++i)
+            for (var i = 0; i < userInputLines.Count; ++i)
             {
-                spriteBatch.DrawString(font, inputLines.ReverseInPlace().ToList()[i],
+                spriteBatch.DrawString(font, userInputLines[i],
                     new Vector2(font.MeasureString(Prompt).X, Screen.Height - font.MeasureString(Prompt).Y*(i + 1)), Color.White);
             }
         }
 
         private void ContinueWrite(IList<string> currentDialogue)
         {
-            var userInput = currentDialogue[0];
+            var forcedInput = currentDialogue[0];
             var npcResponse = currentDialogue[1];
 
-            if (inputLines.Combine().Length != userInput.Length)
+            if (userInput.Length < forcedInput.Length)
             {
-                if (inputLines[inputLines.Count - 1].Length >= MaxInputChars)
-                {
-                    inputLines.Add(userInput[inputLines.Combine().Length].ToString());
-                }
-                else
-                {
-                    inputLines[inputLines.Count - 1] += userInput[inputLines.Combine().Length];
-                }
+                userInput += forcedInput[userInput.Length];
             }
             else if (Keyboards.Keyboard.IsKeyDown(Keys.Enter))
             {
                 ++progress;
                 
                 // Move previous user input up.
+                var inputLines = userInput.Split('\n');
                 outputLines.Add($"> {inputLines[0]}");
-                if (inputLines.Count > 1)
+                if (inputLines.Length > 1)
                 {
-                    for (var i = 1; i < inputLines.Count; ++i)
+                    for (var i = 1; i < inputLines.Length; ++i)
                     {
                         outputLines.Add(inputLines[i]);
                     }
                 }
 
-                inputLines = new List<string> { "" };
+                userInput = "";
 
-                foreach (var line in npcResponse.SplitEvery(MaxOutputChars))
+                foreach (var line in npcResponse.Split('\n'))
                 {
                     outputLines.Add(line);
                 }
