@@ -1,57 +1,54 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace WelcomeToTheFruitBowl
+﻿namespace WelcomeToTheFruitBowl
 {
-    class Stats
+    public class Stats
     {
-        public int Health;
-        public int CurrentHealth;
-        public int Mana;
-        public int CurrentMana;
-        private int strength;
-        private int currentStrengthBonus;
+        private int currentHealth;
+        public int CurrentHealthBonus { get; set; } = 0;
+        public int Health
+        {
+            get { return currentHealth + CurrentHealthBonus; }
+            set { currentHealth = value; }
+        }
 
+        private int currentMana;
+        public int CurrentManaBonus { get; set; } = 0;
+        public int Mana
+        {
+            get { return currentMana + CurrentManaBonus; }
+            set { currentMana = value; }
+        }
+
+        private int currentStrength;
+        public int CurrentStrengthBonus { get; set; } = 0;
         public int Strength
         {
-            get { return strength + currentStrengthBonus; }
-            set { strength = value; }
+            get { return currentStrength + CurrentStrengthBonus; }
+            set { currentStrength = value; }
         }
 
-        private int speed;
-        private int currentSpeedBonus;
-
+        private int currentSpeed;
+        public int CurrentSpeedBonus { get; set; } = 0;
         public int Speed
         {
-            get { return speed + currentSpeedBonus; }
-            set { speed = value; }
+            get { return currentSpeed + CurrentSpeedBonus; }
+            set { currentSpeed = value; }
         }
 
-        private int intelligence;
-        private int currentIntelligenceBonus;
-
+        private int currentIntelligence;
+        public int CurrentIntelligenceBonus { get; set; } = 0;
         public int Intelligence
         {
-            get { return intelligence + currentIntelligenceBonus; }
-            set { intelligence = value; }
+            get { return currentIntelligence + CurrentIntelligenceBonus; }
+            set { currentIntelligence = value; }
         }
 
-
-
-        public Stats(int hp, int ma, int str, int spd, int ite)
+        public Stats(int health, int mana, int strength, int speed, int intelligence)
         {
-            Health = hp;
-            CurrentHealth = hp;
-            Mana = ma;
-            CurrentMana = ma;
-            Strength = str;
-            currentStrengthBonus = 0;
-            Speed = spd;
-            currentSpeedBonus = 0;
-            Intelligence = ite;
-            currentIntelligenceBonus = 0;
+            currentHealth = health;
+            currentMana = mana;
+            currentStrength = strength;
+            currentSpeed = speed;
+            currentIntelligence = intelligence;
         }
     }
 }
