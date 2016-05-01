@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using WelcomeToTheFruitBowl.Engine;
+using WelcomeToTheFruitBowl.Utilities;
 
 namespace WelcomeToTheFruitBowl
 {
@@ -24,21 +26,28 @@ namespace WelcomeToTheFruitBowl
 
             public static void Initialize()
             {
-                ElfTexture = new List<AsciiTexture.AsciiCharacter>
+                ElfTexture = ImageProcessor.ConvertTextureToAscii(LoadTexture("Elf"), Color.White, new Dictionary<Color, Color>()
                 {
-                    new AsciiTexture.AsciiCharacter('o', Color.White, Vector2.Zero)
-                };
+                    // { Color.Black, Color.Gray }
+                }, ImageProcessor.DrawMode.Fill);
             }
+
+            private static Texture2D LoadTexture(string textureName)
+                => content.Load<Texture2D>($"Textures\\{textureName}");
         }
 
         public static class Fonts
         {
             public static SpriteFont ConsoleFont;
+            public static SpriteFont PixelFont;
 
             public static void Initialize()
             {
-                ConsoleFont = content.Load<SpriteFont>(@"Fonts\Console");
+                ConsoleFont = LoadFont("Console");
+                PixelFont = LoadFont("Pixel");
             }
+
+            private static SpriteFont LoadFont(string fontName) => content.Load<SpriteFont>($"Fonts\\{fontName}");
         }
     }
 }
