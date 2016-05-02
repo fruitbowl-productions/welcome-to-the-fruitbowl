@@ -9,73 +9,55 @@ namespace WelcomeToTheFruitBowl.Engine.Textures
     {
         public Vector2 Position;
 
-        private Texture2D texture;
+        private readonly Texture2D texture;
+
+        public GameTexture(Texture2D texture, Vector2 position, float scale)
+        {
+            this.texture = texture;
+            Position = position;
+            Scale = scale;
+        }
+
+        public float Scale { get; set; }
 
         public float Width => texture.Width;
         public float Height => texture.Height;
 
         public float Left
         {
-            get
-            {
-                return Position.X;
-            }
-            set
-            {
-                Position.X = value;
-            }
+            get { return Position.X; }
+            set { Position.X = value; }
         }
 
         public float Right
         {
-            get
-            {
-                return Position.X + Width;
-            }
-            set
-            {
-                Position.X = value - Width;
-            }
+            get { return Position.X + Width; }
+            set { Position.X = value - Width; }
         }
 
         public float Top
         {
-            get
-            {
-                return Position.Y;
-            }
-            set
-            {
-                Position.Y = value;
-            }
+            get { return Position.Y; }
+            set { Position.Y = value; }
         }
 
         public float Bottom
         {
-            get
-            {
-                return Position.Y + Height;
-            }
-            set
-            {
-                Position.Y = value - Height;
-            }
-        }
-
-        public GameTexture(Texture2D texture, Vector2 position)
-        {
-            this.texture = texture;
-            Position = position;
+            get { return Position.Y + Height; }
+            set { Position.Y = value - Height; }
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, Position, null, Color.White);
+            spriteBatch.Draw(texture, Position, null, Color.White, 0f, Vector2.Zero, Scale, SpriteEffects.None, 1f);
         }
 
         public AsciiTexture ToAscii(Dictionary<Color, Color> conversionMap, ImageProcessor.AsciiDrawMode asciiDrawMode)
         {
-            return new AsciiTexture(ImageProcessor.ConvertTextureToAscii(texture, Color.White, conversionMap, asciiDrawMode), Position);
+            return
+                new AsciiTexture(
+                    ImageProcessor.ConvertTextureToAscii(texture, Color.White, conversionMap, asciiDrawMode), Position,
+                    Scale);
         }
     }
 }

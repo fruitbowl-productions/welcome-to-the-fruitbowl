@@ -7,30 +7,22 @@ using Microsoft.Xna.Framework.Input;
 using WelcomeToTheFruitBowl.Engine.Keyboards;
 using WelcomeToTheFruitBowl.Utilities;
 using WelcomeToTheFruitBowl.Utilities.Timers;
+using Keyboard = WelcomeToTheFruitBowl.Engine.Keyboards.Keyboard;
 
 namespace WelcomeToTheFruitBowl.Engine
 {
     public class Console
     {
         private const string Prompt = "> ";
+
+        private readonly List<string[]> dialog;
         private readonly SpriteFont font = Assets.Fonts.ConsoleFont;
         private readonly List<string> outputLines;
         private readonly DelayedTimer timer;
-        private string userInput;
+
+        private readonly InputMode inputMode;
         private int progress;
-
-        private readonly List<string[]> dialog;
-
-        // Any character can be used since Courier New is monospace.
-        private int MaxInputChars => Screen.Width/(int)font.MeasureString(" ").X - Prompt.Length;
-
-        private enum InputMode
-        {
-            User,
-            Override
-        }
-
-        private InputMode inputMode;
+        private string userInput;
 
         public Console()
         {
@@ -47,7 +39,6 @@ namespace WelcomeToTheFruitBowl.Engine
                     spriteBatch.DrawString(font, "_",
                         new Vector2(font.MeasureString(Prompt + inputLines[inputLines.Length - 1]).X,
                             Screen.Height - font.MeasureString(Prompt).Y), Color.White);
-
                 });
             }, TimeSpan.FromMilliseconds(500));
 
@@ -66,6 +57,9 @@ namespace WelcomeToTheFruitBowl.Engine
             outputLines.Add("Welcome to Defined Destiny!");
             outputLines.Add("A Text Based RPG Classic!");
         }
+
+        // Any character can be used since Courier New is monospace.
+        private int MaxInputChars => Screen.Width/(int) font.MeasureString(" ").X - Prompt.Length;
 
         public void Update(GameTime gameTime)
         {
@@ -318,8 +312,8 @@ namespace WelcomeToTheFruitBowl.Engine
                     }
                     else
                     {
-                        throw new NotImplementedException(); 
-                    }  
+                        throw new NotImplementedException();
+                    }
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -332,19 +326,24 @@ namespace WelcomeToTheFruitBowl.Engine
         {
             var userInputLines = userInput.Split('\n').ReverseInPlace().ToList();
             var outputLineNum = 0;
-            
+
             foreach (var line in outputLines.ReverseInPlace())
             {
-                spriteBatch.DrawString(font, line, new Vector2(0, Screen.Height - (2 + outputLineNum + userInputLines.Count - 1)*font.MeasureString(Prompt).Y), Color.White);
+                spriteBatch.DrawString(font, line,
+                    new Vector2(0,
+                        Screen.Height - (2 + outputLineNum + userInputLines.Count - 1)*font.MeasureString(Prompt).Y),
+                    Color.White);
                 ++outputLineNum;
             }
 
-            spriteBatch.DrawString(font, Prompt, new Vector2(0, Screen.Height - font.MeasureString(Prompt).Y*userInputLines.Count), Color.White);
+            spriteBatch.DrawString(font, Prompt,
+                new Vector2(0, Screen.Height - font.MeasureString(Prompt).Y*userInputLines.Count), Color.White);
 
             for (var i = 0; i < userInputLines.Count; ++i)
             {
                 spriteBatch.DrawString(font, userInputLines[i],
-                    new Vector2(font.MeasureString(Prompt).X, Screen.Height - font.MeasureString(Prompt).Y*(i + 1)), Color.White);
+                    new Vector2(font.MeasureString(Prompt).X, Screen.Height - font.MeasureString(Prompt).Y*(i + 1)),
+                    Color.White);
             }
         }
 
@@ -357,10 +356,10 @@ namespace WelcomeToTheFruitBowl.Engine
             {
                 userInput += forcedInput[userInput.Length];
             }
-            else if (Keyboards.Keyboard.IsKeyDown(Keys.Enter))
+            else if (Keyboard.IsKeyDown(Keys.Enter))
             {
                 ++progress;
-                
+
                 // Move previous user input up.
                 var inputLines = userInput.Split('\n');
                 outputLines.Add($"> {inputLines[0]}");
@@ -379,6 +378,12 @@ namespace WelcomeToTheFruitBowl.Engine
                     outputLines.Add(line);
                 }
             }
+        }
+
+        private enum InputMode
+        {
+            User,
+            Override
         }
     }
 }

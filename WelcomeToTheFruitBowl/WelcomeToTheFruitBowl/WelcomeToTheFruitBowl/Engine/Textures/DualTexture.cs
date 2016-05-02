@@ -14,8 +14,16 @@ namespace WelcomeToTheFruitBowl.Engine.Textures
             Ascii
         }
 
-        private GameTexture normalTexture;
-        private AsciiTexture asciiTexture;
+        private readonly AsciiTexture asciiTexture;
+
+        private readonly GameTexture normalTexture;
+
+        public DualTexture(GameTexture texture, Dictionary<Color, Color> conversionMap,
+            ImageProcessor.AsciiDrawMode asciiDrawMode)
+        {
+            normalTexture = texture;
+            asciiTexture = normalTexture.ToAscii(conversionMap, asciiDrawMode);
+        }
 
         public DrawType TextureType { get; set; }
 
@@ -72,13 +80,17 @@ namespace WelcomeToTheFruitBowl.Engine.Textures
             }
         }
 
-        public Vector2 MoveUnit => asciiTexture.MoveUnit;
-
-        public DualTexture(GameTexture texture, Dictionary<Color, Color> conversionMap, ImageProcessor.AsciiDrawMode asciiDrawMode)
+        public float Scale
         {
-            normalTexture = texture;
-            asciiTexture = normalTexture.ToAscii(conversionMap, asciiDrawMode);
+            get { return normalTexture.Scale; }
+            set
+            {
+                normalTexture.Scale = value;
+                asciiTexture.Scale = value;
+            }
         }
+
+        public Vector2 MoveUnit => asciiTexture.MoveUnit;
 
         public void Draw(SpriteBatch spriteBatch)
         {

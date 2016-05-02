@@ -4,8 +4,6 @@ namespace WelcomeToTheFruitBowl
 {
     public class Player
     {
-        public string Name { get; set; }
-
         public enum RaceType
         {
             Dwarf,
@@ -37,5 +35,7 @@ namespace WelcomeToTheFruitBowl
                     throw new ArgumentOutOfRangeException();
             }
         }
+
+        public string Name { get; set; }
     }
 }

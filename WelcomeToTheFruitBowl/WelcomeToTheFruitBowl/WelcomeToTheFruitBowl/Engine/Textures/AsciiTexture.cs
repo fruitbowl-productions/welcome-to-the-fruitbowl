@@ -12,28 +12,31 @@ namespace WelcomeToTheFruitBowl.Engine.Textures
 
         private readonly List<AsciiCharacter> relativeTexture;
 
-        private List<AsciiCharacter> Texture
+        public Vector2 Position;
+
+        public AsciiTexture(List<AsciiCharacter> relativeTexture, Vector2 position, float scale)
+        {
+            Position = position;
+            font = Assets.Fonts.PixelFont;
+            this.relativeTexture = relativeTexture;
+            Scale = scale;
+        }
+
+        private IEnumerable<AsciiCharacter> Texture
         {
             get
             {
                 return relativeTexture.Select(character =>
                 {
-                    var newPosition = character.Position*font.MeasureString(character.Character) + Position;
+                    var newPosition = character.Position*Scale*font.MeasureString(character.Character) + Position;
                     return new AsciiCharacter(character.Character, character.Color, newPosition);
-                }).ToList();
+                });
             }
         }
 
         public Vector2 MoveUnit => font.MeasureString("  ");
 
-        public Vector2 Position;
-
-        public AsciiTexture(List<AsciiCharacter> relativeTexture, Vector2 position)
-        {
-            Position = position;
-            font = Assets.Fonts.PixelFont;
-            this.relativeTexture = relativeTexture;
-        }
+        public float Scale { get; set; }
 
         private float Width
         {
@@ -73,7 +76,8 @@ namespace WelcomeToTheFruitBowl.Engine.Textures
         {
             foreach (var character in Texture)
             {
-                spriteBatch.DrawString(font, character.Character, character.Position, character.Color);
+                spriteBatch.DrawString(font, character.Character, character.Position, character.Color, 0f, Vector2.Zero,
+                    Scale, SpriteEffects.None, 0f);
             }
         }
 

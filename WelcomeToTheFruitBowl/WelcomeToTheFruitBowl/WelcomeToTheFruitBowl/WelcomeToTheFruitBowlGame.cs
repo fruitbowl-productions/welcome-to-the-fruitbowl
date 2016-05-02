@@ -17,8 +17,8 @@ namespace WelcomeToTheFruitBowl
         public static readonly Queue<Action<SpriteBatch>> DrawActions = new Queue<Action<SpriteBatch>>();
         private readonly GraphicsDeviceManager graphics;
         private Console console;
-        private SpriteBatch spriteBatch;
         private DualTexture elf;
+        private SpriteBatch spriteBatch;
 
         public WelcomeToTheFruitBowlGame()
         {
@@ -40,7 +40,7 @@ namespace WelcomeToTheFruitBowl
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            elf = new DualTexture(new GameTexture(Assets.Textures.ElfTexture, Vector2.Zero),
+            elf = new DualTexture(new GameTexture(Assets.Textures.ElfTexture, Vector2.Zero, 1f),
                 new Dictionary<Color, Color>(), ImageProcessor.AsciiDrawMode.Fill)
             {
                 TextureType = DualTexture.DrawType.Ascii
@@ -65,11 +65,11 @@ namespace WelcomeToTheFruitBowl
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.White); // TODO Change back to Color.Black.
-            
+
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null);
 
             console.Draw(spriteBatch);
-            elf.Position += elf.MoveUnit * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            elf.Position += elf.MoveUnit*(float) gameTime.ElapsedGameTime.TotalSeconds;
             elf.Draw(spriteBatch);
 
             // Asynchronous drawing
