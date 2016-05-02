@@ -14,12 +14,13 @@ namespace WelcomeToTheFruitBowl.Engine.Textures
 
         public Vector2 Position;
 
-        public AsciiTexture(List<AsciiCharacter> relativeTexture, Vector2 position, float scale)
+        public AsciiTexture(GameTexture originalTexture, List<AsciiCharacter> relativeTexture, Vector2 position, string drawMode)
         {
             Position = position;
             font = Assets.Fonts.PixelFont;
             this.relativeTexture = relativeTexture;
-            Scale = scale;
+            DrawMode = drawMode;
+            SetScale(originalTexture);
         }
 
         private IEnumerable<AsciiCharacter> Texture
@@ -28,25 +29,41 @@ namespace WelcomeToTheFruitBowl.Engine.Textures
             {
                 return relativeTexture.Select(character =>
                 {
-                    var newPosition = character.Position*Scale*font.MeasureString(character.Character) + Position;
-                    return new AsciiCharacter(character.Character, character.Color, newPosition);
+                    var newPosition = character.Position*scale*font.MeasureString(DrawMode) + Position;
+                    return new AsciiCharacter(character.Color, newPosition);
                 });
             }
         }
 
-        public Vector2 MoveUnit => font.MeasureString("  ");
+        private Vector2 UnscaledUnitDimensions => font.MeasureString(DrawMode);
 
-        public float Scale { get; set; }
+        public Vector2 MoveUnit => UnscaledUnitDimensions*scale;
 
-        private float Width
+        private Vector2 scale;
+
+        private Vector2 UnscaledCharacterSize => UnscaledUnitDimensions;
+        private Vector2 CharacterSize => UnscaledCharacterSize*scale;
+
+        private float CharacterWidth
         {
-            get { throw new NotImplementedException(); }
+            get
+            {
+                var widths = relativeTexture.Select(asciiCharacter => asciiCharacter.Position.X).ToList();
+                return widths.Max() - widths.Min() + 1;
+            }
         }
 
-        private float Height
+        private float CharacterHeight
         {
-            get { throw new NotImplementedException(); }
+            get
+            {
+                var heights = relativeTexture.Select(asciiCharacter => asciiCharacter.Position.Y).ToList();
+                return heights.Max() - heights.Min() + 1;
+            }
         }
+
+        private float Width => CharacterSize.X*CharacterWidth;
+        private float Height => CharacterSize.Y*CharacterHeight;
 
         public float Left
         {
@@ -71,25 +88,36 @@ namespace WelcomeToTheFruitBowl.Engine.Textures
             get { return Position.Y + Height; }
             set { Position.Y = value - Height; }
         }
+        
+        public string DrawMode { get; set; }
+        public const string FillDrawMode = "██";
+        public const string DarkDrawMode = "▓▓";
+        public const string MediumDrawMode = "▒▒";
+        public const string LightDrawMode = "░░";
+        public const string BinaryDrawMode = "01";
 
         public void Draw(SpriteBatch spriteBatch)
         {
             foreach (var character in Texture)
             {
-                spriteBatch.DrawString(font, character.Character, character.Position, character.Color, 0f, Vector2.Zero,
-                    Scale, SpriteEffects.None, 0f);
+                spriteBatch.DrawString(font, DrawMode, character.Position, character.Color, 0f, Vector2.Zero,
+                    scale, SpriteEffects.None, 0f);
             }
+        }
+
+        public void SetScale(GameTexture texture)
+        {
+            scale.X = texture.Width/(UnscaledCharacterSize.X*CharacterWidth);
+            scale.Y = texture.Height/(UnscaledCharacterSize.Y*CharacterHeight);
         }
 
         public class AsciiCharacter
         {
-            public readonly string Character;
             public readonly Color Color;
             public Vector2 Position;
 
-            public AsciiCharacter(string character, Color color, Vector2 position)
+            public AsciiCharacter(Color color, Vector2 position)
             {
-                Character = character;
                 Color = color;
                 Position = position;
             }

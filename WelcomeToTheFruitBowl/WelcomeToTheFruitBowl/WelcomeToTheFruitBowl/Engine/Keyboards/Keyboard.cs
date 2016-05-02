@@ -20,6 +20,9 @@ namespace WelcomeToTheFruitBowl.Engine.Keyboards
         public static bool IsKeyDown(Keys key) => currentState.IsKeyDown(key);
         public static bool IsKeyUp(Keys key) => currentState.IsKeyUp(key);
 
+        public static bool IsKeyNowDown(Keys key) => currentState.IsKeyDown(key) && !previousState.IsKeyDown(key);
+        public static bool IsKeyNowUp(Keys key) => currentState.IsKeyUp(key) && !previousState.IsKeyUp(key);
+
         public static bool IsAnyKeyDown() => PressedKeys.Count > 0;
 
         private static List<Keys> GetPressedKeys(KeyboardState keyboard)

@@ -18,11 +18,11 @@ namespace WelcomeToTheFruitBowl.Engine.Textures
 
         private readonly GameTexture normalTexture;
 
-        public DualTexture(GameTexture texture, Dictionary<Color, Color> conversionMap,
-            ImageProcessor.AsciiDrawMode asciiDrawMode)
+        public DualTexture(GameTexture texture, Dictionary<Color, Color> conversionMap, string drawMode)
         {
             normalTexture = texture;
-            asciiTexture = normalTexture.ToAscii(conversionMap, asciiDrawMode);
+
+            asciiTexture = normalTexture.ToAscii(conversionMap, drawMode);
         }
 
         public DrawType TextureType { get; set; }
@@ -86,7 +86,7 @@ namespace WelcomeToTheFruitBowl.Engine.Textures
             set
             {
                 normalTexture.Scale = value;
-                asciiTexture.Scale = value;
+                asciiTexture.SetScale(normalTexture);
             }
         }
 

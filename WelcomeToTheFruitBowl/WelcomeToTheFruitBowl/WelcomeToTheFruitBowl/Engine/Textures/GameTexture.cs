@@ -20,8 +20,8 @@ namespace WelcomeToTheFruitBowl.Engine.Textures
 
         public float Scale { get; set; }
 
-        public float Width => texture.Width;
-        public float Height => texture.Height;
+        public float Width => texture.Width*Scale;
+        public float Height => texture.Height*Scale;
 
         public float Left
         {
@@ -52,12 +52,11 @@ namespace WelcomeToTheFruitBowl.Engine.Textures
             spriteBatch.Draw(texture, Position, null, Color.White, 0f, Vector2.Zero, Scale, SpriteEffects.None, 1f);
         }
 
-        public AsciiTexture ToAscii(Dictionary<Color, Color> conversionMap, ImageProcessor.AsciiDrawMode asciiDrawMode)
+        public AsciiTexture ToAscii(Dictionary<Color, Color> conversionMap, string drawMode)
         {
-            return
-                new AsciiTexture(
-                    ImageProcessor.ConvertTextureToAscii(texture, Color.White, conversionMap, asciiDrawMode), Position,
-                    Scale);
+            var asciiTexture = new AsciiTexture(this,
+                ImageProcessor.ConvertTextureToAscii(texture, conversionMap), Position, drawMode);
+            return asciiTexture;
         }
     }
 }

@@ -40,11 +40,8 @@ namespace WelcomeToTheFruitBowl
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            elf = new DualTexture(new GameTexture(Assets.Textures.ElfTexture, Vector2.Zero, 1f),
-                new Dictionary<Color, Color>(), ImageProcessor.AsciiDrawMode.Fill)
-            {
-                TextureType = DualTexture.DrawType.Ascii
-            };
+            elf = new DualTexture(new GameTexture(Assets.Textures.ElfTexture, Vector2.Zero, 10f),
+                new Dictionary<Color, Color>(), AsciiTexture.BinaryDrawMode);
         }
 
         protected override void Update(GameTime gameTime)
@@ -55,6 +52,21 @@ namespace WelcomeToTheFruitBowl
             if (Keyboard.IsKeyDown(Keys.Escape))
             {
                 Exit();
+            }
+
+            if (Keyboard.IsKeyNowDown(Keys.Space))
+            {
+                switch (elf.TextureType)
+                {
+                    case DualTexture.DrawType.Ascii:
+                        elf.TextureType = DualTexture.DrawType.Normal;
+                        break;
+                    case DualTexture.DrawType.Normal:
+                        elf.TextureType = DualTexture.DrawType.Ascii;
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
             }
 
             console.Update(gameTime);
@@ -69,6 +81,7 @@ namespace WelcomeToTheFruitBowl
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null);
 
             console.Draw(spriteBatch);
+
             elf.Position += elf.MoveUnit*(float) gameTime.ElapsedGameTime.TotalSeconds;
             elf.Draw(spriteBatch);
 
