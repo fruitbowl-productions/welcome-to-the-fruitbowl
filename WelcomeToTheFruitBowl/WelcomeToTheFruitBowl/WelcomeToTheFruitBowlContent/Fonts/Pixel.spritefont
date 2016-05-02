@@ -52,20 +52,21 @@ with.
     See the documentation for more information.
     -->
     <CharacterRegions>
+      <!-- ASCII Latin Character Set -->
       <CharacterRegion>
-        <!-- ASCII 0 -->
-        <Start>&#48;</Start>
+        <!-- ASCII Space -->
+        <Start>&#32;</Start>
 
-        <!-- ASCII 9 -->
-        <End>&#57;</End>
+        <!-- ASCII Tilde -->
+        <End>&#126;</End>
       </CharacterRegion>
 
+      <!-- Unicode Extras -->
       <CharacterRegion>
         <!-- Unicode FULL BLOCK -->
         <Start>&#9608;</Start>
         <End>&#9608;</End>
       </CharacterRegion>
-      
       <CharacterRegion>
         <!-- Unicode LIGHT SHADE -->
         <Start>&#9617;</Start>
