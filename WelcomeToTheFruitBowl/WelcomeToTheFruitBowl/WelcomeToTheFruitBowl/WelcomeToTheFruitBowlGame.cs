@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using WelcomeToTheFruitBowl.Engine;
 using WelcomeToTheFruitBowl.Engine.Keyboards;
-using WelcomeToTheFruitBowl.Utilities;
 using Console = WelcomeToTheFruitBowl.Engine.Console;
 using Keyboard = WelcomeToTheFruitBowl.Engine.Keyboards.Keyboard;
 
@@ -17,7 +16,6 @@ namespace WelcomeToTheFruitBowl
         private readonly GraphicsDeviceManager graphics;
         private Console console;
         private SpriteBatch spriteBatch;
-        private Texture2D elfTexture2D;
         private AsciiTexture elf;
 
         public WelcomeToTheFruitBowlGame()
@@ -39,8 +37,7 @@ namespace WelcomeToTheFruitBowl
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            elf = new AsciiTexture(Assets.AsciiTextures.ElfTexture, new Vector2(0, 0)); 
-            elfTexture2D = Content.Load<Texture2D>(@"Textures\Elf");
+            elf = new AsciiTexture(Assets.AsciiTextures.ElfTexture, new Vector2(0, 0));
         }
 
         protected override void Update(GameTime gameTime)
@@ -60,12 +57,12 @@ namespace WelcomeToTheFruitBowl
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.White);
-
+            GraphicsDevice.Clear(Color.White); // TODO Change back to Color.Black.
+            
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null);
 
             console.Draw(spriteBatch);
-            elf.Position += elf.MoveUnit;
+            elf.Position += elf.MoveUnit * (float)gameTime.ElapsedGameTime.TotalSeconds;
             elf.Draw(spriteBatch);
 
             // Asynchronous drawing

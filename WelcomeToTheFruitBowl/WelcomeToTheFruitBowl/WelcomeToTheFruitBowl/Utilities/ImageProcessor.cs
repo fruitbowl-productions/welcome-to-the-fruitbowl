@@ -82,7 +82,7 @@ namespace WelcomeToTheFruitBowl.Utilities
                             drawUnit = "░░";
                             break;
                         case DrawMode.Binary:
-                            drawUnit = "ZZ";
+                            drawUnit = "01";
                             break;
                         default:
                             throw new ArgumentOutOfRangeException();
