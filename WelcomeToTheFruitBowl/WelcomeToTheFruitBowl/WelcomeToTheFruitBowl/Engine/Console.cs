@@ -306,7 +306,7 @@ namespace WelcomeToTheFruitBowl.Engine
 
                         if (userInput.Length >= MaxInputChars)
                         {
-                            userInput = userInput.Substring(0, userInput.Length - 2);
+                            userInput = userInput.Substring(0, userInput.Length - 1);
                         }
                     }
                     break;
