@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -8,13 +7,21 @@ namespace WelcomeToTheFruitBowl.Engine.Textures
 {
     public class AsciiTexture
     {
+        public const string FillDrawMode = "██";
+        public const string DarkDrawMode = "▓▓";
+        public const string MediumDrawMode = "▒▒";
+        public const string LightDrawMode = "░░";
+        public const string BinaryDrawMode = "01";
         private readonly SpriteFont font;
 
         private readonly List<AsciiCharacter> relativeTexture;
 
         public Vector2 Position;
 
-        public AsciiTexture(GameTexture originalTexture, List<AsciiCharacter> relativeTexture, Vector2 position, string drawMode)
+        private Vector2 scale;
+
+        public AsciiTexture(GameTexture originalTexture, List<AsciiCharacter> relativeTexture, Vector2 position,
+            string drawMode)
         {
             Position = position;
             font = Assets.Fonts.PixelFont;
@@ -38,8 +45,6 @@ namespace WelcomeToTheFruitBowl.Engine.Textures
         private Vector2 UnscaledUnitDimensions => font.MeasureString(DrawMode);
 
         public Vector2 MoveUnit => UnscaledUnitDimensions*scale;
-
-        private Vector2 scale;
 
         private Vector2 UnscaledCharacterSize => UnscaledUnitDimensions;
         private Vector2 CharacterSize => UnscaledCharacterSize*scale;
@@ -88,13 +93,8 @@ namespace WelcomeToTheFruitBowl.Engine.Textures
             get { return Position.Y + Height; }
             set { Position.Y = value - Height; }
         }
-        
+
         public string DrawMode { get; set; }
-        public const string FillDrawMode = "██";
-        public const string DarkDrawMode = "▓▓";
-        public const string MediumDrawMode = "▒▒";
-        public const string LightDrawMode = "░░";
-        public const string BinaryDrawMode = "01";
 
         public void Draw(SpriteBatch spriteBatch)
         {

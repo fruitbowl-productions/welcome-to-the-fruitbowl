@@ -7,9 +7,8 @@ namespace WelcomeToTheFruitBowl.Engine.Textures
 {
     public class GameTexture
     {
-        public Vector2 Position;
-
         private readonly Texture2D texture;
+        public Vector2 Position;
 
         public GameTexture(Texture2D texture, Vector2 position, float scale)
         {

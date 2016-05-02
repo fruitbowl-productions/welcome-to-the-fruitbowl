@@ -17,10 +17,10 @@ namespace WelcomeToTheFruitBowl.Engine
 
         private readonly List<string[]> dialog;
         private readonly SpriteFont font = Assets.Fonts.ConsoleFont;
-        private readonly List<string> outputLines;
-        private readonly DelayedTimer timer;
 
         private readonly InputMode inputMode;
+        private readonly List<string> outputLines;
+        private readonly DelayedTimer timer;
         private int progress;
         private string userInput;
 

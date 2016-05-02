@@ -6,7 +6,6 @@ using Microsoft.Xna.Framework.Input;
 using WelcomeToTheFruitBowl.Engine;
 using WelcomeToTheFruitBowl.Engine.Keyboards;
 using WelcomeToTheFruitBowl.Engine.Textures;
-using WelcomeToTheFruitBowl.Utilities;
 using Console = WelcomeToTheFruitBowl.Engine.Console;
 using Keyboard = WelcomeToTheFruitBowl.Engine.Keyboards.Keyboard;
 

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -9,7 +8,7 @@ namespace WelcomeToTheFruitBowl.Utilities
 {
     public static class ImageProcessor
     {
-        public static List<AsciiTexture.AsciiCharacter> ConvertTextureToAscii(Texture2D texture, 
+        public static List<AsciiTexture.AsciiCharacter> ConvertTextureToAscii(Texture2D texture,
             Dictionary<Color, Color> conversionMap)
         {
             var result = new List<AsciiTexture.AsciiCharacter>();
@@ -56,7 +55,7 @@ namespace WelcomeToTheFruitBowl.Utilities
                     pixels[x][y] = retrievedColor[0];
                 }
             }
-            
+
             return pixels;
         }
     }
