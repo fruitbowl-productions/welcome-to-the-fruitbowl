@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using WelcomeToTheFruitBowl.Engine;
+using WelcomeToTheFruitBowl.Engine.Textures;
 
 namespace WelcomeToTheFruitBowl.Utilities
 {
     public static class ImageProcessor
     {
-        public enum DrawMode
+        public enum AsciiDrawMode
         {
             Fill,
             Dark,
@@ -19,10 +19,10 @@ namespace WelcomeToTheFruitBowl.Utilities
         }
 
         public static List<AsciiTexture.AsciiCharacter> ConvertTextureToAscii(Texture2D texture, Color alpha,
-            Dictionary<Color, Color> conversionMap, DrawMode drawMode)
+            Dictionary<Color, Color> conversionMap, AsciiDrawMode asciiDrawMode)
         {
             var result = new List<AsciiTexture.AsciiCharacter>();
-            var pixelizedTexture = PixelizeTexture(texture, drawMode);
+            var pixelizedTexture = PixelizeTexture(texture, asciiDrawMode);
 
             for (var x = 0; x < pixelizedTexture.Length; ++x)
             {
@@ -49,7 +49,7 @@ namespace WelcomeToTheFruitBowl.Utilities
             }).ToList();
         }
 
-        private static Tuple<string, Color>[][] PixelizeTexture(Texture2D texture, DrawMode drawMode)
+        private static Tuple<string, Color>[][] PixelizeTexture(Texture2D texture, AsciiDrawMode asciiDrawMode)
         {
             var pixels = new Tuple<string, Color>[texture.Width][];
 
@@ -66,22 +66,22 @@ namespace WelcomeToTheFruitBowl.Utilities
                     texture.GetData(0, new Rectangle(x, y, 1, 1), retrievedColor, 0, 1);
 
                     var drawUnit = "";
-                    switch (drawMode)
+                    switch (asciiDrawMode)
                     {
-                        case DrawMode.Fill:
+                        case AsciiDrawMode.Fill:
                             // Use unprintable characters so that we can use the default character (defined in Pixel.spritefont).
                             drawUnit = "██";
                             break;
-                        case DrawMode.Dark:
+                        case AsciiDrawMode.Dark:
                             drawUnit = "▓▓";
                             break;
-                        case DrawMode.Medium:
+                        case AsciiDrawMode.Medium:
                             drawUnit = "▒▒";
                             break;
-                        case DrawMode.Light:
+                        case AsciiDrawMode.Light:
                             drawUnit = "░░";
                             break;
-                        case DrawMode.Binary:
+                        case AsciiDrawMode.Binary:
                             drawUnit = "01";
                             break;
                         default:

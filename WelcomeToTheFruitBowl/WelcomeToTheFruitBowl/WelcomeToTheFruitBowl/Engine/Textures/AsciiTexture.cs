@@ -4,7 +4,7 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace WelcomeToTheFruitBowl.Engine
+namespace WelcomeToTheFruitBowl.Engine.Textures
 {
     public class AsciiTexture
     {

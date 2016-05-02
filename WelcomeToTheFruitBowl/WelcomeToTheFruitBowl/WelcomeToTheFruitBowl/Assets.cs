@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using WelcomeToTheFruitBowl.Engine;
+using WelcomeToTheFruitBowl.Engine.Textures;
 using WelcomeToTheFruitBowl.Utilities;
 
 namespace WelcomeToTheFruitBowl
@@ -16,20 +16,17 @@ namespace WelcomeToTheFruitBowl
         {
             content = contentInput;
 
-            AsciiTextures.Initialize();
+            Textures.Initialize();
             Fonts.Initialize();
         }
 
-        public static class AsciiTextures
+        public static class Textures
         {
-            public static List<AsciiTexture.AsciiCharacter> ElfTexture;
+            public static Texture2D ElfTexture;
 
             public static void Initialize()
             {
-                ElfTexture = ImageProcessor.ConvertTextureToAscii(LoadTexture("Elf"), Color.White, new Dictionary<Color, Color>()
-                {
-                    // { Color.Black, Color.Gray }
-                }, ImageProcessor.DrawMode.Binary);
+                ElfTexture = LoadTexture("Elf");
             }
 
             private static Texture2D LoadTexture(string textureName)

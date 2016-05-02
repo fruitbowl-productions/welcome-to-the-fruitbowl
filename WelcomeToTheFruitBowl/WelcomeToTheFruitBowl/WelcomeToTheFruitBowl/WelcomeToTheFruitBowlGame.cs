@@ -5,6 +5,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using WelcomeToTheFruitBowl.Engine;
 using WelcomeToTheFruitBowl.Engine.Keyboards;
+using WelcomeToTheFruitBowl.Engine.Textures;
+using WelcomeToTheFruitBowl.Utilities;
 using Console = WelcomeToTheFruitBowl.Engine.Console;
 using Keyboard = WelcomeToTheFruitBowl.Engine.Keyboards.Keyboard;
 
@@ -16,7 +18,7 @@ namespace WelcomeToTheFruitBowl
         private readonly GraphicsDeviceManager graphics;
         private Console console;
         private SpriteBatch spriteBatch;
-        private AsciiTexture elf;
+        private DualTexture elf;
 
         public WelcomeToTheFruitBowlGame()
         {
@@ -37,7 +39,12 @@ namespace WelcomeToTheFruitBowl
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            elf = new AsciiTexture(Assets.AsciiTextures.ElfTexture, new Vector2(0, 0));
+
+            elf = new DualTexture(new GameTexture(Assets.Textures.ElfTexture, Vector2.Zero),
+                new Dictionary<Color, Color>(), ImageProcessor.AsciiDrawMode.Fill)
+            {
+                TextureType = DualTexture.DrawType.Ascii
+            };
         }
 
         protected override void Update(GameTime gameTime)
