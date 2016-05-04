@@ -80,7 +80,8 @@ namespace WelcomeToTheFruitBowl
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null);
 
             console.Draw(spriteBatch);
-
+            
+            // TODO Remove ImageProcessor test.
             elf.Position += elf.MoveUnit*(float) gameTime.ElapsedGameTime.TotalSeconds;
             elf.Draw(spriteBatch);
 
