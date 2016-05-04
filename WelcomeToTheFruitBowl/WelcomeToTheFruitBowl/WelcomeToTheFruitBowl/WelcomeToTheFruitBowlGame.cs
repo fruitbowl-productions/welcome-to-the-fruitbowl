@@ -27,7 +27,7 @@ namespace WelcomeToTheFruitBowl
 
         protected override void Initialize()
         {
-            Screen.Initialize(graphics.GraphicsDevice);
+            Screen.Initialize(graphics);
             Assets.Initialize(Content);
 
             console = new Console();
